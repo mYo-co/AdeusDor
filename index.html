@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#102b4e" />
+  <title>ADEUS, DOR DE CABEÇA!</title>
+  <style>
+    :root{
+      --navy:#102b4e;
+      --navy-2:#173b63;
+      --teal:#087f83;
+      --teal-dark:#08666d;
+      --green:#17845f;
+      --mint:#e9f6f3;
+      --ice:#f2f7fb;
+      --white:#fff;
+      --ink:#1c2c3d;
+      --muted:#536477;
+      --line:#d9e5ed;
+      --gold:#e5bd63;
+      --shadow:0 18px 48px rgba(16,43,78,.10);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:#f6f9fb;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.62;
+      -webkit-font-smoothing:antialiased;
+    }
+    .page-shell{overflow:hidden}
+    .topline{height:7px;background:linear-gradient(90deg,var(--navy),var(--teal),var(--green))}
+    .container{width:min(1120px,calc(100% - 40px));margin-inline:auto}
+    .hero-wrap{
+      position:relative;
+      padding:28px 0 72px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 84% 12%,rgba(48,167,158,.26),transparent 27%),
+        radial-gradient(circle at 8% 90%,rgba(34,114,158,.30),transparent 30%),
+        linear-gradient(125deg,#102847 0%,#14395d 55%,#075e68 100%);
+      isolation:isolate;
+    }
+    .hero-wrap:before,.hero-wrap:after{content:"";position:absolute;z-index:-1;border:1px solid rgba(255,255,255,.10);border-radius:50%}
+    .hero-wrap:before{width:520px;height:520px;right:-180px;top:-250px}
+    .hero-wrap:after{width:350px;height:350px;left:-200px;bottom:-220px}
+    .masthead{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
+    .brand-mark{display:flex;align-items:center;gap:12px}
+    .brand-icon{width:42px;height:42px;border:1px solid rgba(255,255,255,.32);border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.10);box-shadow:inset 0 1px rgba(255,255,255,.12)}
+    .brand-icon svg{width:25px;height:25px}
+    .mast-rule{width:76px;height:1px;background:rgba(255,255,255,.35)}
+    .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:42px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;margin:0 0 18px;padding:7px 12px;border:1px solid rgba(255,255,255,.22);border-radius:99px;background:rgba(255,255,255,.08);font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#dff8f3}
+    .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:#61d5b1;box-shadow:0 0 0 4px rgba(97,213,177,.13)}
+    h1{max-width:760px;margin:0 0 22px;font-size:clamp(34px,5.1vw,62px);line-height:1.045;letter-spacing:-.045em;font-weight:850}
+    .hero-lead{max-width:730px;margin:0;color:#e5eef6;font-size:clamp(17px,2vw,21px);line-height:1.55}
+    .hero-art{position:relative;min-height:420px;display:grid;place-items:center}
+    .art-halo{position:absolute;width:min(390px,100%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(119,220,204,.26),rgba(119,220,204,.06) 55%,transparent 70%);border:1px solid rgba(255,255,255,.13)}
+    .art-card{position:relative;width:min(390px,100%);padding:22px;border:1px solid rgba(255,255,255,.22);border-radius:34px;background:linear-gradient(150deg,rgba(255,255,255,.17),rgba(255,255,255,.055));backdrop-filter:blur(10px);box-shadow:0 28px 70px rgba(0,0,0,.22)}
+    .head-illustration{width:100%;height:auto;display:block}
+    .art-caption{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .art-chip{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.11);font-size:11px;font-weight:750;color:#f2fbff}
+    .art-chip svg{width:15px;height:15px;stroke:#8de0c9}
+    .hero-bottom{position:absolute;left:0;right:0;bottom:0;height:28px;background:#f6f9fb;clip-path:ellipse(58% 100% at 50% 100%)}
+    .section{padding:74px 0}
+    .section-white{background:#fff}
+    .section-soft{background:linear-gradient(180deg,#f6fafc,#edf5f7)}
+    .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
+    .panel{height:100%;padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow)}
+    .panel-tint{background:linear-gradient(145deg,#f1f8fc,#eaf6f3);border-color:#d7e9e8}
+    .panel-title{display:flex;align-items:center;gap:12px;margin:0 0 20px;color:var(--navy);font-size:21px;line-height:1.25;letter-spacing:-.025em}
+    .title-icon{width:40px;height:40px;flex:0 0 40px;border-radius:13px;display:grid;place-items:center;color:var(--teal);background:#e3f4f1}
+    .title-icon svg{width:21px;height:21px}
+    .plain-lines{padding:0;margin:0;list-style:none;display:grid;gap:12px}
+    .plain-lines li{position:relative;padding-left:27px;color:#304255}
+    .plain-lines li:before{content:"";position:absolute;left:0;top:.52em;width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(23,132,95,.10)}
+    .question-list{display:grid;gap:11px;margin:0;padding:0;list-style:none}
+    .question-list li{display:flex;gap:10px;align-items:flex-start;color:#263c50}
+    .question-list li:before{content:"?";flex:0 0 23px;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:#dff2ef;color:var(--teal-dark);font-weight:900;font-size:13px;margin-top:1px}
+    .statement{margin-top:24px;padding:28px 32px;border-radius:var(--radius);display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:linear-gradient(110deg,#eaf4f9,#e8f6f3);border:1px solid #d7e8ed}
+    .statement-icon{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;color:var(--teal);background:#fff;box-shadow:0 8px 20px rgba(16,43,78,.08)}
+    .statement-icon svg{width:27px;height:27px}
+    .statement p{margin:0;color:var(--navy);font-weight:750;font-size:clamp(18px,2.2vw,23px);line-height:1.38}
+    .body-copy{max-width:850px;margin-inline:auto}
+    .body-copy p{margin:0 0 18px}
+    .callout-title{margin:0 0 18px;color:var(--navy);font-weight:850;font-size:clamp(25px,3vw,36px);line-height:1.2;letter-spacing:-.035em}
+    .callout-title .accent{color:var(--teal)}
+    .callout{padding:40px;border-radius:30px;background:linear-gradient(120deg,#102b4e,#175076 70%,#08777b);color:#fff;box-shadow:0 22px 48px rgba(16,43,78,.18);position:relative;overflow:hidden}
+    .callout:after{content:"";position:absolute;width:250px;height:250px;right:-95px;top:-125px;border-radius:50%;border:1px solid rgba(255,255,255,.18);box-shadow:0 0 0 22px rgba(255,255,255,.025),0 0 0 48px rgba(255,255,255,.025)}
+    .callout h2{position:relative;z-index:1;margin:0 0 14px;color:white;font-size:clamp(23px,3vw,34px);line-height:1.18;letter-spacing:-.03em}
+    .callout p{position:relative;z-index:1;max-width:860px;margin:0;color:#e5f1f7;font-size:17px}
+    .product-intro{text-align:center;max-width:850px;margin:0 auto 42px}
+    .product-intro p{color:var(--muted);margin:0 0 16px}
+    .product-name{margin:0;color:var(--navy);font-size:clamp(37px,6vw,65px);font-weight:900;letter-spacing:-.055em;line-height:1.02}
+    .product-subtitle{display:inline-block;max-width:780px;margin:20px auto 16px;padding:13px 22px;border-radius:14px;background:linear-gradient(90deg,var(--teal-dark),var(--green));color:#fff;font-weight:850;font-size:clamp(15px,2vw,19px);line-height:1.38;letter-spacing:.015em}
+    .product-intro .description{max-width:700px;margin:0 auto;font-size:17px}
+    .section-heading{text-align:center;max-width:760px;margin:0 auto 34px}
+    .section-heading h2{margin:0;color:var(--navy);font-size:clamp(28px,4vw,42px);line-height:1.13;letter-spacing:-.04em}
+    .section-heading:after{content:"";display:block;width:70px;height:4px;margin:18px auto 0;border-radius:9px;background:linear-gradient(90deg,var(--teal),var(--green))}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+    .feature{min-height:250px;padding:25px 23px;border:1px solid #dce8ed;border-radius:22px;background:#fff;box-shadow:0 10px 28px rgba(16,43,78,.055);transition:transform .2s ease,box-shadow .2s ease}
+    .feature:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(16,43,78,.10)}
+    .feature-head{display:flex;align-items:center;gap:12px;margin-bottom:17px}
+    .feature-number{width:34px;height:34px;flex:0 0 34px;border-radius:11px;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:850;font-size:14px}
+    .feature-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:#e7f5f2;color:var(--teal)}
+    .feature-icon svg{width:23px;height:23px}
+    .feature h3{margin:0 0 11px;color:var(--navy);font-size:17px;line-height:1.3;letter-spacing:-.015em}
+    .feature p{margin:0;color:#4b5d6d;font-size:14px;line-height:1.62}
+    .sub-bullets{padding-left:18px;margin:10px 0 0;color:#4b5d6d;font-size:14px;line-height:1.55}
+    .sub-bullets li{padding-left:2px;margin:2px 0}
+    .diary-card{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:center;padding:34px;border-radius:28px;background:linear-gradient(120deg,#e4f5f0,#eef7fb);border:1px solid #d1e9e5}
+    .diary-lead{display:flex;gap:18px;align-items:flex-start}
+    .diary-lead .title-icon{width:56px;height:56px;flex-basis:56px;border-radius:18px}
+    .diary-lead h2{margin:0;color:var(--navy);font-size:clamp(22px,2.6vw,30px);line-height:1.22;letter-spacing:-.03em}
+    .diary-lists{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}
+    .diary-lists ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .diary-lists li{position:relative;padding-left:25px;color:#31495b;font-size:14px}
+    .diary-lists li:before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:900;font-size:17px}
+    .closing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+    .closing-item{padding:24px;border:1px solid var(--line);border-radius:21px;background:#fff}
+    .closing-item .title-icon{margin-bottom:15px}
+    .closing-item h3{margin:0 0 10px;color:var(--navy);font-size:18px;line-height:1.3;letter-spacing:-.02em}
+    .closing-item p{margin:0;color:#4c5e6d;font-size:14px;line-height:1.65}
+    .final-section{padding:70px 0 40px;background:linear-gradient(150deg,#102b4e,#075e68);color:white}
+    .final-inner{text-align:center;max-width:850px;margin:auto}
+    .final-inner h2{margin:0 0 16px;font-size:clamp(31px,4.8vw,52px);line-height:1.08;letter-spacing:-.045em;color:white}
+    .final-inner p{max-width:700px;margin:0 auto 28px;color:#e5f1f6;font-size:18px}
+    .cta{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:60px;padding:16px 27px;border:0;border-radius:14px;background:linear-gradient(110deg,#d8b65f,#f0d58c);color:#162b43;text-decoration:none;font-weight:900;font-size:15px;letter-spacing:.015em;box-shadow:0 12px 30px rgba(0,0,0,.20);transition:transform .2s ease,filter .2s ease}
+    .cta:hover{transform:translateY(-2px);filter:brightness(1.04)}
+    .cta svg{width:18px;height:18px}
+    .disclaimer-wrap{padding:22px 0 36px;background:#edf3f7}
+    .disclaimer{display:flex;gap:14px;align-items:flex-start;max-width:1000px;margin:auto;padding:20px 22px;border:1px solid #d7e3eb;border-radius:17px;background:#fff;color:#526375;font-size:12px;line-height:1.65}
+    .disclaimer svg{width:22px;height:22px;flex:0 0 22px;color:var(--teal);margin-top:1px}
+    .disclaimer p{margin:0}
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:20px}.hero-art{min-height:320px}.art-card{width:min(340px,90%)}
+      .features{grid-template-columns:repeat(2,1fr)}.closing-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:650px){
+      .container{width:min(100% - 28px,560px)}.hero-wrap{padding:20px 0 52px}.masthead{margin-bottom:34px}.mast-rule{width:44px}
+      .hero-grid{gap:8px}h1{font-size:clamp(34px,10vw,48px)}.hero-art{min-height:260px}.art-card{width:min(290px,88%);padding:15px;border-radius:25px}.art-chip{font-size:10px;padding:7px 9px}
+      .section{padding:50px 0}.intro-grid{grid-template-columns:1fr}.panel{padding:22px}.panel-title{font-size:19px}.statement{padding:22px;grid-template-columns:1fr;gap:13px}.statement-icon{width:46px;height:46px}
+      .callout{padding:27px 23px;border-radius:23px}.callout p{font-size:15px}.features{grid-template-columns:1fr}.feature{min-height:0;padding:22px}.diary-card{grid-template-columns:1fr;padding:23px;gap:23px}.diary-lists{grid-template-columns:1fr}.closing-grid{grid-template-columns:1fr}.final-section{padding:52px 0 34px}.final-inner p{font-size:16px}.cta{width:100%;padding:15px 18px;font-size:14px}.disclaimer{padding:17px;font-size:11px}
+    }
+
+    .hero-wrap{padding:0;background:#fff;color:var(--ink)}
+    .hero-wrap:before,.hero-wrap:after,.hero-bottom{display:none}
+    .hero-wrap .container{width:100%;max-width:900px}
+    .hero-main-image{display:block;width:100%;height:auto;margin:0 auto}
+    .inserted-visual{display:block;width:100%;height:auto;margin:30px auto;border-radius:18px;box-shadow:var(--shadow)}
+    .offer-visual{display:block;width:min(100%,700px);height:auto;margin:0 auto 38px;border-radius:18px;box-shadow:var(--shadow)}
+
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
+</head>
+<body>
+<div class="page-shell">
+  <div class="topline"></div>
+  <header class="hero-wrap">
+    <div class="container">
+      <img class="hero-main-image" src="assets/01-hero.webp" alt="Adeus, dor de cabeça — apresentação do manual mYo" />
+    </div>
+  </header>
+
+  <main>
+    <section class="section section-white">
+      <div class="container">
+        <div class="intro-grid">
+          <article class="panel">
+            <h2 class="panel-title"><span class="title-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/><path d="M5 5l14 14M19 5L5 19"/></svg></span>Talvez já tenha passado por isto:</h2>
+            <ul class="plain-lines">
+              <li>Acorda de manhã e sente a cabeça pesada.</li>
+              <li>Tenta trabalhar, mas a dor não deixa concentrar-se.</li>
+              <li>Às vezes, sente uma pressão que parece apertar toda a cabeça. Noutras ocasiões, é uma dor pulsante, localizada apenas num lado, acompanhada de sensibilidade à luz ou até de náuseas.</li>
+              <li>Toma alguma coisa para aliviar. A dor melhora temporariamente… mas, passado algum tempo, volta a aparecer.</li>
+            </ul>
+          </article>
+          <article class="panel panel-tint">
+            <h2 class="panel-title"><span class="title-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>E começa a perguntar-se:</h2>
+            <ul class="question-list">
+              <li>Porque tenho dores de cabeça tantas vezes?</li>
+              <li>Será que sofro de enxaqueca?</li>
+              <li>Porque sinto dor sempre na mesma região?</li>
+              <li>Será que a minha postura, alimentação ou falta de sono têm alguma influência?</li>
+              <li>Existem formas naturais de aliviar este desconforto?</li>
+              <li>Como posso saber quando uma dor de cabeça merece atenção médica?</li>
+            </ul>
+          </article>
+        </div>
+        <div class="statement">
+          <div class="statement-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2.8 20h18.4L12 3z"/><path d="M12 9v5M12 17h.01"/></svg></div>
+          <p>O mais preocupante é continuar a tratar todas as dores de cabeça como se fossem iguais.</p>
+        </div>
+        <div class="body-copy" style="padding-top:28px">
+          <p>Afinal, existem diferentes tipos de cefaleia, com características, possíveis desencadeantes e necessidades de tratamento diferentes.</p>
+          <p>E ignorar dores frequentes, habituar-se ao desconforto ou recorrer repetidamente a medicamentos sem orientação adequada não é uma boa estratégia para cuidar da sua saúde.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container">
+        <div class="callout">
+          <h2>NÃO PRECISA CONTINUAR A VIVER SEM COMPREENDER AQUILO QUE ESTÁ A SENTIR!</h2>
+          <p>Imagine ter um manual que lhe permite consultar os diferentes padrões de dor de cabeça, comparar os sintomas, acompanhar a intensidade e conhecer medidas de autocuidado que podem ajudar em determinadas situações.</p>
+        </div>
+        <div class="product-intro" style="padding-top:42px">
+          <p>É precisamente para isso que foi criado:</p>
+          <h2 class="product-name">ADEUS, DOR DE CABEÇA!</h2>
+          <div class="product-subtitle">O MANUAL PRÁTICO PARA COMPREENDER, IDENTIFICAR PADRÕES E ALIVIAR AS DORES DE CABEÇA.</div>
+          <p class="description">Um guia educativo, ilustrado e de consulta prática, desenvolvido para pessoas que sofrem de dores de cabeça e querem compreender melhor os seus sintomas.</p>
+        </div>
+        <img class="offer-visual" src="assets/02-oferta.webp" alt="Kit completo mYo Adeus, Dor de Cabeça" />
+        <img class="inserted-visual" src="assets/03-localizacao-da-dor.webp" alt="Ilustração das diferentes regiões da cabeça onde a dor pode ser sentida" />
+        <div class="section-heading"><h2>O QUE VAI DESCOBRIR DENTRO DESTE MANUAL?</h2></div>
+        <img class="inserted-visual" src="assets/04-consulta-tipos.webp" alt="Profissional de saúde a explicar os diferentes tipos de dor de cabeça" />
+        <div class="features">
+          <article class="feature">
+            <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4a3 3 0 0 0-5 2 3 3 0 0 0 0 5 3 3 0 0 0 2 5 3 3 0 0 0 5 3V4zM15 4a3 3 0 0 1 5 2 3 3 0 0 1 0 5 3 3 0 0 1-2 5 3 3 0 0 1-5 3V4z"/><path d="M9 8h2M13 8h2M9 13h2M13 13h2"/></svg></span></div>
+            <h3>1. CONHEÇA OS DIFERENTES TIPOS DE DOR DE CABEÇA</h3>
+            <p>Enxaqueca, cefaleia tensional, cefaleia em salvas, cefaleia sinusal, cervicogénica e outras condições.<br><br>Descubra como se manifestam, onde costumam provocar dor e quais os sintomas que podem acompanhá-las.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M8 9h8M8 13h8M8 17h5"/></svg></span></div>
+            <h3>2. COMPARE OS SEUS SINTOMAS E RECONHEÇA PADRÕES</h3>
+            <p>Sente dor na testa? Nas têmporas? Atrás dos olhos? Na nuca ou apenas num lado da cabeça?<br><br>Aprenda a observar a localização, o tipo de dor, a duração e os sintomas associados.<br><br>Terá um questionário educativo para comparar aquilo que sente com as características dos diferentes tipos de cefaleia.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V13M10 20V8M16 20V4M22 20V10"/></svg></span></div>
+            <h3>3. SAIBA MEDIR A INTENSIDADE DA SUA DOR</h3>
+            <p>É uma dor ligeira ou já está a interferir com a sua rotina?<br><br>Utilize uma escala de 0 a 10 para acompanhar a intensidade dos episódios e perceber como evoluem ao longo do tempo.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 4c-8 0-14 4-14 11 0 3 2 5 5 5 7 0 9-8 9-16z"/><path d="M4 21c3-6 7-9 13-13"/></svg></span></div>
+            <h3>4. DESCUBRA MÉTODOS CASEIROS QUE PODEM AJUDAR A ALIVIAR O DESCONFORTO</h3>
+            <p>Não precisa experimentar qualquer receita que encontra na internet sem saber se é adequada.</p>
+            <p style="margin-top:10px">Conheça medidas de autocuidado, incluindo:</p>
+            <ul class="sub-bullets">
+              <li>Compressas frias e mornas.</li><li>Técnicas de relaxamento.</li><li>Exercícios suaves de alongamento.</li><li>Hidratação adequada.</li><li>Cuidados com a postura.</li><li>Hábitos de descanso e sono.</li>
+            </ul>
+            <p style="margin-top:10px">Aprenda também em que situações essas medidas podem ajudar e quando não são suficientes.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4M6 6l2.8 2.8M15.2 15.2 18 18"/></svg></span></div>
+            <h3>5. IDENTIFIQUE POSSÍVEIS FACTORES QUE DESENCADEIAM AS DORES</h3>
+            <p>Será que dorme poucas horas? Passa muito tempo diante do telemóvel? Fica muitas horas sem comer? Vive períodos de stress?<br><br>Descubra como diferentes factores podem estar associados aos episódios de dor e aprenda a observar os seus próprios padrões.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 3 6v6c0 5 3.8 8 9 9 5.2-1 9-4 9-9V6l-9-3z"/><path d="M12 8v5M12 16h.01"/></svg></span></div>
+            <h3>6. APRENDA A RECONHECER OS SINAIS QUE NÃO DEVE IGNORAR</h3>
+            <p>Nem todas as dores de cabeça são inofensivas.<br><br>Existem sintomas que exigem avaliação médica urgente, como uma dor súbita e extremamente intensa, alterações neurológicas, febre com rigidez no pescoço ou alterações súbitas da visão.<br><br>Saiba reconhecer esses sinais e quando deve procurar assistência médica em vez de tentar resolver tudo em casa.</p>
+          </article>
+        </div>
+        <img class="inserted-visual" src="assets/05-principais-tipos.webp" alt="Resumo visual dos principais tipos de dor de cabeça" />
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="container">
+        <div class="diary-card">
+          <div class="diary-lead">
+            <span class="title-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M8 14h3M8 17h6"/></svg></span>
+            <div>
+              <h2>E NÃO É SÓ ISSO!</h2>
+              <h2 style="margin-top:9px">TENHA TAMBÉM UM DIÁRIO DE ACOMPANHAMENTO DA DOR DE CABEÇA.</h2>
+            </div>
+          </div>
+          <div>
+            <p style="margin:0 0 16px;color:var(--navy);font-weight:800">Imagine conseguir registar:</p>
+            <div class="diary-lists">
+              <ul><li>Em que dia começou a dor.</li><li>Onde sentiu o desconforto.</li><li>Qual foi a intensidade de 0 a 10.</li></ul>
+              <ul><li>Quanto tempo durou.</li><li>Que outros sintomas apareceram.</li><li>O que tinha feito ou comido antes.</li><li>Que medidas utilizou e como evoluiu.</li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="body-copy" style="padding-top:25px">
+          <p>Com esses registos, poderá identificar padrões e apresentar informações mais organizadas durante uma consulta médica.</p>
+        </div>
+        <div class="section-heading" style="margin-top:50px"><h2>PORQUE DEVE DAR ATENÇÃO ÀS SUAS DORES DE CABEÇA?</h2></div>
+        <img class="inserted-visual" src="assets/06-impacto-na-rotina.webp" alt="Exemplos de como as dores de cabeça podem afectar a rotina" />
+        <div class="body-copy">
+          <p>Porque viver constantemente com dor pode afectar o seu trabalho, o seu descanso, a sua concentração e até os momentos que deveria aproveitar com a família.</p>
+          <p>E o pior é habituar-se a sofrer e começar a considerar normal sentir dor várias vezes por semana.</p>
+          <p>Não precisa esperar que o desconforto domine a sua rotina para começar a prestar atenção à sua saúde.</p>
+          <p>Dores recorrentes merecem investigação. E quanto melhor conseguir descrever aquilo que sente, mais informações poderá fornecer ao profissional de saúde que o acompanha.</p>
+        </div>
+        <div class="closing-grid" style="grid-template-columns:1fr 1fr">
+          <article class="closing-item">
+            <span class="title-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a8 8 0 0 0-4 15v3h8v-3a8 8 0 0 0-4-15z"/><path d="M9 10h6M10 14h4"/></svg></span>
+            <h3>IMAGINE TER TUDO ISTO ORGANIZADO NUM ÚNICO MANUAL!</h3>
+            <img class="inserted-visual" src="assets/07-conteudo-do-manual.webp" alt="Manual prático mYo e recursos de acompanhamento" />
+            <p>Em vez de passar horas a pesquisar informações dispersas, terá um guia de consulta com explicações, ilustrações, questionários, escalas e orientações práticas.</p>
+            <p style="margin-top:12px">Um material que poderá consultar sempre que precisar de rever alguma informação.</p>
+          </article>
+          <article class="closing-item">
+            <span class="title-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/></svg></span>
+            <h3>O SEU PRIMEIRO PASSO COMEÇA AQUI!</h3>
+            <p>Não continue a ignorar aquilo que sente.<br><br>Não trate automaticamente todas as dores da mesma maneira.<br><br>Comece por compreender os diferentes padrões de cefaleia, acompanhe os seus sintomas e aprenda quais os cuidados que podem ajudar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-section">
+      <div class="container final-inner">
+        <h2>ADQUIRA AGORA O SEU MANUAL ADEUS, DOR DE CABEÇA!</h2>
+        <p>Tenha acesso ao guia educativo e comece a cuidar melhor da sua saúde, com mais informação e consciência.</p>
+        <a class="cta" href="#" aria-label="QUERO O MEU MANUAL AGORA">[QUERO O MEU MANUAL AGORA] <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </section>
+    <section class="disclaimer-wrap">
+      <div class="container">
+        <div class="disclaimer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7h.01"/></svg>
+          <p>Informação importante: Este material tem finalidade exclusivamente educativa. Não constitui um instrumento de diagnóstico, não substitui avaliação médica e não promete curar dores de cabeça. Os métodos caseiros apresentados são medidas de autocuidado, não substituem tratamentos indicados por profissionais de saúde. Dores frequentes, intensas, novas ou acompanhadas de sinais de alerta devem ser avaliadas por um profissional de saúde.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
